@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Secure Registration</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+body{
+font-family: Arial, sans-serif;
+background: linear-gradient(135deg,#6a11cb,#2575fc);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+margin:0;
+}
+
+.container{
+background:white;
+padding:40px;
+border-radius:12px;
+width:360px;
+box-shadow:0 20px 40px rgba(0,0,0,0.2);
+}
+
+h2{
+text-align:center;
+margin-bottom:20px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin-top:12px;
+border-radius:6px;
+border:1px solid #ccc;
+font-size:14px;
+}
+
+button{
+width:100%;
+padding:12px;
+margin-top:20px;
+border:none;
+border-radius:6px;
+background:#2575fc;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+background:#1a5edb;
+}
+
+.small{
+font-size:12px;
+color:#666;
+margin-top:5px;
+}
+
+.password-box{
+position:relative;
+}
+
+.eye{
+position:absolute;
+right:12px;
+top:50%;
+transform:translateY(-50%);
+cursor:pointer;
+font-size:18px;
+color:#555;
+}
+
+#match{
+font-size:13px;
+margin-top:5px;
+}
+
+#strength{
+font-size:13px;
+margin-top:5px;
+}
+
+.success{
+color:green;
+}
+
+.error{
+color:red;
+}
+
+.weak{
+color:red;
+}
+
+.medium{
+color:orange;
+}
+
+.strong{
+color:green;
+}
+
+#result{
+text-align:center;
+margin-top:10px;
+font-size:14px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Create Account</h2>
+
+<form id="form">
+
+<input type="text" id="username" placeholder="Enter Username" required>
+
+<div class="password-box">
+
+<input type="password" id="password" placeholder="Enter Password" required>
+
+<i id="eye" class="eye fa-solid fa-eye"></i>
+
+</div>
+
+<div class="small">
+Password must contain at least 8 characters, including a number and special symbol.
+</div>
+
+<div id="strength"></div>
+
+<input type="password" id="confirm" placeholder="Confirm Password" required>
+
+<div id="match"></div>
+
+<button type="submit">Register</button>
+
+<div id="result"></div>
+
+</form>
+
+</div>
+
+<script>
+
+const password=document.getElementById("password");
+const confirmPassword=document.getElementById("confirm");
+const match=document.getElementById("match");
+const strength=document.getElementById("strength");
+const form=document.getElementById("form");
+const result=document.getElementById("result");
+const eye=document.getElementById("eye");
+
+/* SHOW / HIDE PASSWORD */
+
+eye.onclick=function(){
+
+if(password.type==="password"){
+
+password.type="text";
+confirmPassword.type="text";
+eye.classList.replace("fa-eye","fa-eye-slash");
+
+}else{
+
+password.type="password";
+confirmPassword.type="password";
+eye.classList.replace("fa-eye-slash","fa-eye");
+
+}
+
+};
+
+/* PASSWORD MATCH CHECK */
+
+function checkMatch(){
+
+if(confirmPassword.value===""){
+match.textContent="";
+return;
+}
+
+if(password.value===confirmPassword.value){
+
+match.textContent="✔ Passwords Match";
+match.className="success";
+
+}else{
+
+match.textContent="✖ Passwords Do Not Match";
+match.className="error";
+
+}
+
+}
+
+/* PASSWORD STRENGTH CHECK */
+
+function checkStrength(){
+
+const pass=password.value;
+
+let score=0;
+
+if(pass.length>=8) score++;
+if(/[a-z]/.test(pass)) score++;
+if(/[A-Z]/.test(pass)) score++;
+if(/[0-9]/.test(pass)) score++;
+if(/[^A-Za-z0-9]/.test(pass)) score++;
+
+if(pass.length===0){
+strength.textContent="";
+return;
+}
+
+if(score<=2){
+
+strength.textContent="Strength: Weak";
+strength.className="weak";
+
+}
+else if(score===3 || score===4){
+
+strength.textContent="Strength: Medium";
+strength.className="medium";
+
+}
+else{
+
+strength.textContent="Strength: Strong";
+strength.className="strong";
+
+}
+
+}
+
+password.addEventListener("input",checkStrength);
+password.addEventListener("input",checkMatch);
+confirmPassword.addEventListener("input",checkMatch);
+
+/* PASSWORD RULE */
+
+function validPassword(pass){
+return /^(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/.test(pass);
+}
+
+/* REGISTER BUTTON */
+
+form.addEventListener("submit",function(e){
+
+e.preventDefault();
+
+const username=document.getElementById("username").value.trim();
+const pass=password.value;
+const confirm=confirmPassword.value;
+
+if(!validPassword(pass)){
+result.textContent="Password must contain at least 8 characters, a number and a special symbol.";
+result.className="error";
+return;
+}
+
+if(pass!==confirm){
+result.textContent="Passwords do not match.";
+result.className="error";
+return;
+}
+
+if(username.toLowerCase()==="admin"){
+result.textContent="Username already exists.";
+result.className="error";
+return;
+}
+
+result.textContent="Account created successfully!";
+result.className="success";
+
+});
+
+</script>
+
+</body>
+
+</html>
