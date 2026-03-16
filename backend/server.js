@@ -35,7 +35,7 @@ function hashPassword(password) {
 //
 // REGISTER API
 //
-app.post("/register", (req, res) => {
+app.post("/api/register", (req, res) => {
 
     const { username, password } = req.body
 
@@ -64,7 +64,7 @@ app.post("/register", (req, res) => {
 //
 // LOGIN API
 //
-app.post("/login", (req, res) => {
+app.post("/api/login", (req, res) => {
 
     const { username, password } = req.body
 
@@ -91,7 +91,7 @@ app.post("/login", (req, res) => {
 //
 // SHOW USERS (for demo purpose)
 //
-app.get("/users", (req, res) => {
+app.get("/api/users", (req, res) => {
 
     db.all("SELECT username,password FROM users", (err, rows) => {
 
