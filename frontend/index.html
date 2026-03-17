@@ -451,36 +451,36 @@ loginForm.addEventListener("submit", async function(e) {
 
   if (!valid) return;
 
-  const btn = loginForm.querySelector(".btn-login");
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>&nbsp; Signing in...';
-  btn.disabled = true;
+const btn = loginForm.querySelector(".btn-login");
+btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>&nbsp; Signing in...';
+btn.disabled = true;
 
-  try {
-    const response = await fetch("http://localhost:5000/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
+try {
+const response = await fetch("http://localhost:5000/api/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password }),
     });
 
     const data = await response.json();
 
     if (data.message === "Login successful") {
-      result.textContent = "✅ Login successful! Redirecting...";
-      result.className = "success";
-      setTimeout(() => { window.location.href = "register.html"; }, 1500);
-    } else {
-      result.textContent = "❌ " + data.message;
-      result.className = "error";
-      btn.innerHTML = '<i class="fa-solid fa-arrow-right-to-bracket"></i>&nbsp; Sign In';
-      btn.disabled = false;
+    result.textContent = "✅ Login successful! Redirecting...";
+    result.className = "success";
+    setTimeout(() => { window.location.href = "register.html"; }, 1500);
+} else {
+    result.textContent = "❌ " + data.message;
+    result.className = "error";
+    btn.innerHTML = '<i class="fa-solid fa-arrow-right-to-bracket"></i>&nbsp; Sign In';
+    btn.disabled = false;
     }
 
-  } catch (err) {
+} catch (err) {
     result.textContent = "⚠ Cannot connect to server. Make sure backend is running!";
     result.className = "error";
     btn.innerHTML = '<i class="fa-solid fa-arrow-right-to-bracket"></i>&nbsp; Sign In';
     btn.disabled = false;
-  }
+    }
 });
 </script>
 </body>

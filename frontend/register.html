@@ -1,429 +1,429 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Create Account</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-:root {
-  --mint:    #00e5c3;
-  --teal:    #00b4a0;
-  --deep:    #05141f;
-  --card:    #0b2030;
-  --border:  rgba(0,229,195,0.18);
-  --text:    #e8f4f2;
-  --muted:   #7ab3aa;
-  --error:   #ff6b7a;
-  --success: #00e5c3;
-  --weak:    #ff6b7a;
-  --medium:  #f0a500;
-  --strong:  #00e5c3;
-}
+    :root {
+    --mint:    #00e5c3;
+    --teal:    #00b4a0;
+    --deep:    #05141f;
+    --card:    #0b2030;
+    --border:  rgba(0,229,195,0.18);
+    --text:    #e8f4f2;
+    --muted:   #7ab3aa;
+    --error:   #ff6b7a;
+    --success: #00e5c3;
+    --weak:    #ff6b7a;
+    --medium:  #f0a500;
+    --strong:  #00e5c3;
+    }
 
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--deep);
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  position: relative;
-}
+    body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--deep);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    }
 
-/* ── Animated background blobs ── */
-.bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
-.blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.25;
-  animation: drift 12s ease-in-out infinite alternate;
-}
-.blob-1 {
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, #00e5c3, transparent 70%);
-  top: -150px; right: -150px;
-  animation-delay: 0s;
-}
-.blob-2 {
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, #0077ff, transparent 70%);
-  bottom: -100px; left: -100px;
-  animation-delay: -4s;
-}
-.blob-3 {
-  width: 300px; height: 300px;
-  background: radial-gradient(circle, #00e5c3, transparent 70%);
-  top: 40%; left: 20%;
-  animation-delay: -8s;
-}
-@keyframes drift {
-  from { transform: translate(0, 0) scale(1); }
-  to   { transform: translate(30px, 40px) scale(1.1); }
-}
+    /* ── Animated background blobs ── */
+    .bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.25;
+    animation: drift 12s ease-in-out infinite alternate;
+    }
+    .blob-1 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, #00e5c3, transparent 70%);
+    top: -150px; right: -150px;
+    animation-delay: 0s;
+    }
+    .blob-2 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, #0077ff, transparent 70%);
+    bottom: -100px; left: -100px;
+    animation-delay: -4s;
+    }
+    .blob-3 {
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, #00e5c3, transparent 70%);
+    top: 40%; left: 20%;
+    animation-delay: -8s;
+    }
+    @keyframes drift {
+    from { transform: translate(0, 0) scale(1); }
+    to   { transform: translate(30px, 40px) scale(1.1); }
+    }
 
-/* ── Grid overlay ── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(0,229,195,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,229,195,0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-  z-index: 0;
-}
+    /* ── Grid overlay ── */
+    body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(0,229,195,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,195,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 0;
+    }
 
-/* ── Card ── */
-.card {
-  position: relative;
-  z-index: 1;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 48px 44px;
-  width: 420px;
-  box-shadow:
-    0 0 0 1px rgba(0,229,195,0.05),
-    0 40px 80px rgba(0,0,0,0.5),
-    inset 0 1px 0 rgba(255,255,255,0.05);
-  animation: slideUp 0.7s cubic-bezier(0.16,1,0.3,1) both;
-}
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(40px) scale(0.97); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
-}
+    /* ── Card ── */
+    .card {
+    position: relative;
+    z-index: 1;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 48px 44px;
+    width: 420px;
+    box-shadow:
+        0 0 0 1px rgba(0,229,195,0.05),
+        0 40px 80px rgba(0,0,0,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+    animation: slideUp 0.7s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    @keyframes slideUp {
+    from { opacity: 0; transform: translateY(40px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
 
-/* ── Logo ── */
-.logo-wrap {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 32px;
-}
-.logo-icon {
-  width: 44px; height: 44px;
-  background: linear-gradient(135deg, var(--mint), var(--teal));
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
-  color: var(--deep);
-  box-shadow: 0 0 20px rgba(0,229,195,0.3);
-}
-.logo-text {
-  font-family: 'Syne', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--text);
-  letter-spacing: -0.3px;
-}
-.logo-text span { color: var(--mint); }
+    /* ── Logo ── */
+    .logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+    }
+    .logo-icon {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, var(--mint), var(--teal));
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    color: var(--deep);
+    box-shadow: 0 0 20px rgba(0,229,195,0.3);
+    }
+    .logo-text {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.3px;
+    }
+    .logo-text span { color: var(--mint); }
 
-/* ── Heading ── */
-.heading {
-  font-family: 'Syne', sans-serif;
-  font-size: 30px;
-  font-weight: 800;
-  color: var(--text);
-  letter-spacing: -0.5px;
-  line-height: 1.2;
-  margin-bottom: 6px;
-}
-.subheading {
-  font-size: 14px;
-  color: var(--muted);
-  margin-bottom: 32px;
-}
+    /* ── Heading ── */
+    .heading {
+    font-family: 'Syne', sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    margin-bottom: 6px;
+    }
+    .subheading {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 32px;
+    }
 
-/* ── Badge ── */
-.secure-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  color: var(--muted);
-  background: rgba(0,229,195,0.06);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 5px 12px;
-  margin-bottom: 24px;
-}
-.secure-badge i { color: var(--mint); font-size: 10px; }
+    /* ── Badge ── */
+    .secure-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--muted);
+    background: rgba(0,229,195,0.06);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 12px;
+    margin-bottom: 24px;
+    }
+    .secure-badge i { color: var(--mint); font-size: 10px; }
 
-/* ── Fields ── */
-.field { margin-bottom: 16px; }
-label {
-  display: block;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  margin-bottom: 8px;
-}
-.input-wrap { position: relative; }
-.input-wrap i.icon {
-  position: absolute;
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--muted);
-  font-size: 14px;
-  transition: color 0.2s;
-  pointer-events: none;
-}
-input {
-  width: 100%;
-  padding: 14px 16px 14px 42px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 12px;
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
-  outline: none;
-}
-input::placeholder { color: rgba(255,255,255,0.2); }
-input:focus {
-  border-color: var(--mint);
-  background: rgba(0,229,195,0.04);
-  box-shadow: 0 0 0 3px rgba(0,229,195,0.1);
-}
+    /* ── Fields ── */
+    .field { margin-bottom: 16px; }
+    label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+    }
+    .input-wrap { position: relative; }
+    .input-wrap i.icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    font-size: 14px;
+    transition: color 0.2s;
+    pointer-events: none;
+    }
+        input {
+        width: 100%;
+    padding: 14px 16px 14px 42px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    outline: none;
+    }
+    input::placeholder { color: rgba(255,255,255,0.2); }
+    input:focus {
+    border-color: var(--mint);
+    background: rgba(0,229,195,0.04);
+    box-shadow: 0 0 0 3px rgba(0,229,195,0.1);
+    }
 
-.eye-btn {
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: var(--muted);
-  cursor: pointer;
-  font-size: 14px;
-  padding: 4px;
-  transition: color 0.2s;
-}
-.eye-btn:hover { color: var(--mint); }
+    .eye-btn {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px;
+    transition: color 0.2s;
+    }
+    .eye-btn:hover { color: var(--mint); }
 
-/* ── Hint text ── */
-.hint {
-  font-size: 11px;
-  color: var(--muted);
-  margin-top: 6px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-.hint i { font-size: 10px; color: var(--mint); }
+    /* ── Hint text ── */
+    .hint {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    }
+    .hint i { font-size: 10px; color: var(--mint); }
 
-/* ── Strength bar ── */
-.strength-wrap { margin-top: 8px; }
-.strength-bars {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 5px;
-}
-.strength-bar {
-  flex: 1;
-  height: 3px;
-  border-radius: 2px;
-  background: rgba(255,255,255,0.08);
-  transition: background 0.3s;
-}
-#strengthText {
-  font-size: 11px;
-  color: var(--muted);
-  font-weight: 500;
-}
+    /* ── Strength bar ── */
+    .strength-wrap { margin-top: 8px; }
+    .strength-bars {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 5px;
+    }
+    .strength-bar {
+    flex: 1;
+    height: 3px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.08);
+    transition: background 0.3s;
+    }
+    #strengthText {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 500;
+    }
 
-/* ── Match / Error texts ── */
-.status-text {
-  font-size: 11px;
-  margin-top: 6px;
-  min-height: 16px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  opacity: 0;
-  transform: translateY(-3px);
-  transition: opacity 0.2s, transform 0.2s;
-}
-.status-text.show { opacity: 1; transform: translateY(0); }
-.status-text.success { color: var(--success); }
-.status-text.error   { color: var(--error); }
+    /* ── Match / Error texts ── */
+    .status-text {
+    font-size: 11px;
+    margin-top: 6px;
+    min-height: 16px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    opacity: 0;
+    transform: translateY(-3px);
+    transition: opacity 0.2s, transform 0.2s;
+    }
+    .status-text.show { opacity: 1; transform: translateY(0); }
+    .status-text.success { color: var(--success); }
+    .status-text.error   { color: var(--error); }
 
-/* ── Submit button ── */
-.btn-register {
-  width: 100%;
-  padding: 15px;
-  margin-top: 8px;
-  background: linear-gradient(135deg, var(--mint), var(--teal));
-  border: none;
-  border-radius: 12px;
-  color: var(--deep);
-  font-family: 'Syne', sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  cursor: pointer;
-  transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
-  box-shadow: 0 4px 24px rgba(0,229,195,0.25);
-  position: relative;
-  overflow: hidden;
-}
-.btn-register:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0,229,195,0.35);
-  filter: brightness(1.05);
-}
-.btn-register:active { transform: translateY(0); }
+    /* ── Submit button ── */
+    .btn-register {
+    width: 100%;
+    padding: 15px;
+    margin-top: 8px;
+    background: linear-gradient(135deg, var(--mint), var(--teal));
+    border: none;
+    border-radius: 12px;
+    color: var(--deep);
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
+    box-shadow: 0 4px 24px rgba(0,229,195,0.25);
+    position: relative;
+    overflow: hidden;
+    }
+    .btn-register:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,229,195,0.35);
+    filter: brightness(1.05);
+    }
+    .btn-register:active { transform: translateY(0); }
 
-/* ── Result ── */
-#result {
-  text-align: center;
-  font-size: 13px;
-  margin-top: 14px;
-  min-height: 20px;
-  font-weight: 500;
-  border-radius: 8px;
-  padding: 0;
-  transition: all 0.3s;
-}
-#result.success {
-  color: var(--success);
-  background: rgba(0,229,195,0.08);
-  padding: 10px;
-  border: 1px solid rgba(0,229,195,0.2);
-}
-#result.error {
-  color: var(--error);
-  background: rgba(255,107,122,0.08);
-  padding: 10px;
-  border: 1px solid rgba(255,107,122,0.2);
-}
+    /* ── Result ── */
+    #result {
+    text-align: center;
+    font-size: 13px;
+    margin-top: 14px;
+    min-height: 20px;
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 0;
+    transition: all 0.3s;
+    }
+    #result.success {
+    color: var(--success);
+    background: rgba(0,229,195,0.08);
+    padding: 10px;
+    border: 1px solid rgba(0,229,195,0.2);
+    }
+    #result.error {
+    color: var(--error);
+    background: rgba(255,107,122,0.08);
+    padding: 10px;
+    border: 1px solid rgba(255,107,122,0.2);
+    }
 
-/* ── Divider & login link ── */
-.divider {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 24px 0 20px;
-}
-.divider::before, .divider::after {
-  content: ''; flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-.divider span { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+    /* ── Divider & login link ── */
+    .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 24px 0 20px;
+    }
+    .divider::before, .divider::after {
+    content: ''; flex: 1;
+    height: 1px;
+    background: var(--border);
+    }
+    .divider span { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
 
-.login-link {
-  text-align: center;
-  font-size: 13px;
-  color: var(--muted);
-}
-.login-link a {
-  color: var(--mint);
-  text-decoration: none;
-  font-weight: 600;
-  transition: opacity 0.2s;
-}
-.login-link a:hover { opacity: 0.75; }
-</style>
-</head>
+    .login-link {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    }
+    .login-link a {
+    color: var(--mint);
+    text-decoration: none;
+    font-weight: 600;
+    transition: opacity 0.2s;
+    }
+    .login-link a:hover { opacity: 0.75; }
+    </style>
+    </head>
 
-<body>
-<div class="bg">
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-  <div class="blob blob-3"></div>
-</div>
-
-<div class="card">
-
-  <!-- Logo -->
-  <div class="logo-wrap">
-    <div class="logo-icon"><i class="fa-solid fa-shield-halved"></i></div>
-    <div class="logo-text">Secure<span>Auth</span></div>
-  </div>
-
-  <!-- Badge -->
-  <div class="secure-badge">
-    <i class="fa-solid fa-circle-check"></i>
-    SHA-256 Encrypted · SSL Secured
-  </div>
-
-  <!-- Heading -->
-  <div class="heading">Create account.</div>
-  <div class="subheading">Join us — it only takes a minute</div>
-
-  <!-- Form -->
-  <form id="form" autocomplete="off">
-
-    <!-- Username -->
-    <div class="field">
-      <label for="username">Username</label>
-      <div class="input-wrap">
-        <i class="icon fa-solid fa-user"></i>
-        <input type="text" id="username" placeholder="Choose a username" required />
-      </div>
+    <body>
+    <div class="bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
     </div>
 
-    <!-- Password -->
-    <div class="field">
-      <label for="password">Password</label>
-      <div class="input-wrap">
-        <i class="icon fa-solid fa-lock"></i>
-        <input type="password" id="password" placeholder="Create a strong password" required />
-        <button type="button" class="eye-btn" id="eyeBtn">
-          <i class="fa-solid fa-eye" id="eyeIcon"></i>
-        </button>
-      </div>
-      <div class="hint"><i class="fa-solid fa-circle-info"></i> Min 8 chars, include a number &amp; special symbol</div>
+    <div class="card">
 
-      <!-- Strength bars -->
-      <div class="strength-wrap">
-        <div class="strength-bars">
-          <div class="strength-bar" id="bar1"></div>
-          <div class="strength-bar" id="bar2"></div>
-          <div class="strength-bar" id="bar3"></div>
-          <div class="strength-bar" id="bar4"></div>
-          <div class="strength-bar" id="bar5"></div>
+    <!-- Logo -->
+    <div class="logo-wrap">
+        <div class="logo-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="logo-text">Secure<span>Auth</span></div>
+    </div>
+
+    <!-- Badge -->
+    <div class="secure-badge">
+        <i class="fa-solid fa-circle-check"></i>
+        SHA-256 Encrypted · SSL Secured
+    </div>
+
+    <!-- Heading -->
+    <div class="heading">Create account.</div>
+    <div class="subheading">Join us — it only takes a minute</div>
+
+    <!-- Form -->
+    <form id="form" autocomplete="off">
+
+        <!-- Username -->
+        <div class="field">
+        <label for="username">Username</label>
+        <div class="input-wrap">
+            <i class="icon fa-solid fa-user"></i>
+            <input type="text" id="username" placeholder="Choose a username" required />
         </div>
-        <div id="strengthText"></div>
-      </div>
+        </div>
+
+        <!-- Password -->
+        <div class="field">
+        <label for="password">Password</label>
+        <div class="input-wrap">
+            <i class="icon fa-solid fa-lock"></i>
+            <input type="password" id="password" placeholder="Create a strong password" required />
+            <button type="button" class="eye-btn" id="eyeBtn">
+            <i class="fa-solid fa-eye" id="eyeIcon"></i>
+            </button>
+        </div>
+        <div class="hint"><i class="fa-solid fa-circle-info"></i> Min 8 chars, include a number &amp; special symbol</div>
+
+        <!-- Strength bars -->
+        <div class="strength-wrap">
+            <div class="strength-bars">
+            <div class="strength-bar" id="bar1"></div>
+            <div class="strength-bar" id="bar2"></div>
+                <div class="strength-bar" id="bar3"></div>
+                <div class="strength-bar" id="bar4"></div>
+                <div class="strength-bar" id="bar5"></div>
+                </div>
+                <div id="strengthText"></div>
+            </div>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="field">
+            <label for="confirm">Confirm Password</label>
+            <div class="input-wrap">
+                <i class="icon fa-solid fa-lock"></i>
+                <input type="password" id="confirm" placeholder="Re-enter your password" required />
+            </div>
+        <div class="status-text" id="matchText"></div>
+        </div>
+
+        <button type="submit" class="btn-register">
+        <i class="fa-solid fa-user-plus"></i>&nbsp; Create Account
+        </button>
+
+        <div id="result"></div>
+
+    </form>
+
+    <div class="divider"><span>Already have one?</span></div>
+
+    <div class="login-link">
+        Already have an account? <a href="index.html">Sign in →</a>
     </div>
-
-    <!-- Confirm Password -->
-    <div class="field">
-      <label for="confirm">Confirm Password</label>
-      <div class="input-wrap">
-        <i class="icon fa-solid fa-lock"></i>
-        <input type="password" id="confirm" placeholder="Re-enter your password" required />
-      </div>
-      <div class="status-text" id="matchText"></div>
-    </div>
-
-    <button type="submit" class="btn-register">
-      <i class="fa-solid fa-user-plus"></i>&nbsp; Create Account
-    </button>
-
-    <div id="result"></div>
-
-  </form>
-
-  <div class="divider"><span>Already have one?</span></div>
-
-  <div class="login-link">
-    Already have an account? <a href="index.html">Sign in →</a>
-  </div>
 
 </div>
 
@@ -437,127 +437,127 @@ const result          = document.getElementById("result");
 const eyeBtn          = document.getElementById("eyeBtn");
 const eyeIcon         = document.getElementById("eyeIcon");
 const bars            = [
-  document.getElementById("bar1"),
-  document.getElementById("bar2"),
-  document.getElementById("bar3"),
-  document.getElementById("bar4"),
-  document.getElementById("bar5"),
+    document.getElementById("bar1"),
+    document.getElementById("bar2"),
+    document.getElementById("bar3"),
+    document.getElementById("bar4"),
+    document.getElementById("bar5"),
 ];
 
 /* ── Show / Hide password ── */
 eyeBtn.onclick = () => {
-  const isHidden = password.type === "password";
-  password.type        = isHidden ? "text" : "password";
-  confirmPassword.type = isHidden ? "text" : "password";
-  eyeIcon.className    = isHidden ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
-};
+    const isHidden = password.type === "password";
+    password.type        = isHidden ? "text" : "password";
+    confirmPassword.type = isHidden ? "text" : "password";
+    eyeIcon.className    = isHidden ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
+    };
 
-/* ── Password strength ── */
-function checkStrength() {
-  const pass = password.value;
-  let score = 0;
-  if (pass.length >= 8)          score++;
-  if (/[a-z]/.test(pass))        score++;
-  if (/[A-Z]/.test(pass))        score++;
-  if (/[0-9]/.test(pass))        score++;
-  if (/[^A-Za-z0-9]/.test(pass)) score++;
+    /* ── Password strength ── */
+    function checkStrength() {
+    const pass = password.value;
+    let score = 0;
+    if (pass.length >= 8)          score++;
+    if (/[a-z]/.test(pass))        score++;
+    if (/[A-Z]/.test(pass))        score++;
+    if (/[0-9]/.test(pass))        score++;
+    if (/[^A-Za-z0-9]/.test(pass)) score++;
 
-  const colors = ["", "#ff6b7a", "#ff6b7a", "#f0a500", "#00e5c3", "#00e5c3"];
-  const labels = ["", "Weak", "Weak", "Medium", "Strong", "Very Strong"];
-  const textColors = ["", "var(--weak)", "var(--weak)", "var(--medium)", "var(--strong)", "var(--strong)"];
+    const colors = ["", "#ff6b7a", "#ff6b7a", "#f0a500", "#00e5c3", "#00e5c3"];
+    const labels = ["", "Weak", "Weak", "Medium", "Strong", "Very Strong"];
+    const textColors = ["", "var(--weak)", "var(--weak)", "var(--medium)", "var(--strong)", "var(--strong)"];
 
-  bars.forEach((bar, i) => {
-    bar.style.background = pass.length === 0
-      ? "rgba(255,255,255,0.08)"
-      : i < score ? colors[score] : "rgba(255,255,255,0.08)";
-  });
+    bars.forEach((bar, i) => {
+        bar.style.background = pass.length === 0
+        ? "rgba(255,255,255,0.08)"
+        : i < score ? colors[score] : "rgba(255,255,255,0.08)";
+    });
 
-  if (pass.length === 0) {
+if (pass.length === 0) {
     strengthText.textContent = "";
-  } else {
+    } else {
     strengthText.textContent = "Strength: " + labels[score];
     strengthText.style.color = textColors[score];
-  }
-}
+    }
+    }
 
-/* ── Password match ── */
+    /* ── Password match ── */
 function checkMatch() {
-  if (confirmPassword.value === "") {
+    if (confirmPassword.value === "") {
     matchText.textContent = "";
     matchText.className = "status-text";
     return;
-  }
-  if (password.value === confirmPassword.value) {
+    }
+    if (password.value === confirmPassword.value) {
     matchText.innerHTML = '<i class="fa-solid fa-check"></i> Passwords match';
     matchText.className = "status-text success show";
-  } else {
+    } else {
     matchText.innerHTML = '<i class="fa-solid fa-xmark"></i> Passwords do not match';
     matchText.className = "status-text error show";
-  }
-}
+    }
+    }
 
-password.addEventListener("input", checkStrength);
-password.addEventListener("input", checkMatch);
-confirmPassword.addEventListener("input", checkMatch);
+    password.addEventListener("input", checkStrength);
+    password.addEventListener("input", checkMatch);
+    confirmPassword.addEventListener("input", checkMatch);
 
-/* ── Password rule ── */
-function validPassword(pass) {
-  return /^(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/.test(pass);
-}
+    /* ── Password rule ── */
+    function validPassword(pass) {
+    return /^(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/.test(pass);
+    }
 
-/* ── Form submit ── */
-form.addEventListener("submit", async function(e) {
-  e.preventDefault();
-  result.textContent = "";
-  result.className = "";
+    /* ── Form submit ── */
+    form.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    result.textContent = "";
+    result.className = "";
 
-  const username = document.getElementById("username").value.trim();
-  const pass     = password.value;
-  const confirm  = confirmPassword.value;
+    const username = document.getElementById("username").value.trim();
+    const pass     = password.value;
+    const confirm  = confirmPassword.value;
 
-  if (!validPassword(pass)) {
+    if (!validPassword(pass)) {
     result.textContent = "⚠ Password must be at least 8 characters, include a number and special symbol.";
     result.className = "error";
     return;
-  }
+    }
 
-  if (pass !== confirm) {
+    if (pass !== confirm) {
     result.textContent = "⚠ Passwords do not match.";
     result.className = "error";
     return;
-  }
+    }
 
-  const btn = form.querySelector(".btn-register");
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>&nbsp; Creating account...';
-  btn.disabled = true;
+    const btn = form.querySelector(".btn-register");
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>&nbsp; Creating account...';
+    btn.disabled = true;
 
-  try {
+    try {
     const response = await fetch("http://localhost:5000/api/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password: pass }),
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password: pass }),
     });
 
     const data = await response.json();
 
     if (data.message === "Registration successful") {
-      result.textContent = "✅ Account created! Redirecting to login...";
-      result.className = "success";
-      setTimeout(() => { window.location.href = "index.html"; }, 1500);
+        result.textContent = "✅ Account created! Redirecting to login...";
+        result.className = "success";
+        setTimeout(() => { window.location.href = "index.html"; }, 1500);
     } else {
-      result.textContent = "❌ " + data.message;
-      result.className = "error";
-      btn.innerHTML = '<i class="fa-solid fa-user-plus"></i>&nbsp; Create Account';
-      btn.disabled = false;
+        result.textContent = "❌ " + data.message;
+        result.className = "error";
+        btn.innerHTML = '<i class="fa-solid fa-user-plus"></i>&nbsp; Create Account';
+        btn.disabled = false;
     }
 
-  } catch (err) {
+    } catch (err) {
     result.textContent = "⚠ Cannot connect to server. Make sure backend is running!";
     result.className = "error";
     btn.innerHTML = '<i class="fa-solid fa-user-plus"></i>&nbsp; Create Account';
     btn.disabled = false;
-  }
-});
-</script>
-</body>
-</html>
+    }
+    });
+    </script>
+    </body>
+    </html>
