@@ -40,6 +40,10 @@ function hashPassword(password) {
         .digest("hex");
 }
 
+app.get("/", (req, res) => {
+    res.send("Backend is running ");
+});
+
 // ===============================
 // REGISTER API
 // ===============================
@@ -62,16 +66,20 @@ app.post("/api/register", (req, res) => {
         function (err) {
 
             if (err) {
-                return res.json({
-                    message: "User already exists"
-                });
-            }
+        console.log(err.message);
+        return res.json({
+            message: "User already exists or database error"
+        });
+
+}
 
             res.json({
                 message: "Registration successful"
             });
         }
     );
+    console.log("Register request:", username);
+    console.log("Hashed Password:", hashedPassword);
 });
 
 // ===============================
@@ -112,6 +120,7 @@ app.post("/api/login", (req, res) => {
             }
         }
     );
+    console.log("Login attempt:", username);
 });
 
 // ===============================

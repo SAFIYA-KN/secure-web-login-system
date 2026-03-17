@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secure Login</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --mint:     #00e5c3;
+  --teal:     #00b4a0;
+  --deep:     #05141f;
+  --card:     #0b2030;
+  --border:   rgba(0,229,195,0.18);
+  --text:     #e8f4f2;
+  --muted:    #7ab3aa;
+  --error:    #ff6b7a;
+  --success:  #00e5c3;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--deep);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── Animated background blobs ── */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.25;
+  animation: drift 12s ease-in-out infinite alternate;
+}
+.blob-1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, #00e5c3, transparent 70%);
+  top: -150px; left: -150px;
+  animation-delay: 0s;
+}
+.blob-2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, #0077ff, transparent 70%);
+  bottom: -100px; right: -100px;
+  animation-delay: -4s;
+}
+.blob-3 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, #00e5c3, transparent 70%);
+  top: 50%; left: 60%;
+  animation-delay: -8s;
+}
+@keyframes drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(30px, 40px) scale(1.1); }
+}
+
+/* ── Grid overlay ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,229,195,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,195,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: 0;
+}
+
+/* ── Card ── */
+.card {
+  position: relative;
+  z-index: 1;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 48px 44px;
+  width: 420px;
+  box-shadow:
+    0 0 0 1px rgba(0,229,195,0.05),
+    0 40px 80px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+  animation: slideUp 0.7s cubic-bezier(0.16,1,0.3,1) both;
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Logo / Icon ── */
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.logo-icon {
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, var(--mint), var(--teal));
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  color: var(--deep);
+  box-shadow: 0 0 20px rgba(0,229,195,0.3);
+}
+.logo-text {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.3px;
+}
+.logo-text span { color: var(--mint); }
+
+/* ── Heading ── */
+.heading {
+  font-family: 'Syne', sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.subheading {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 32px;
+}
+
+/* ── Input groups ── */
+.field {
+  margin-bottom: 18px;
+}
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
+.input-wrap {
+  position: relative;
+}
+.input-wrap i.icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 14px;
+  transition: color 0.2s;
+}
+input {
+  width: 100%;
+  padding: 14px 16px 14px 42px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  outline: none;
+}
+input::placeholder { color: rgba(255,255,255,0.2); }
+input:focus {
+  border-color: var(--mint);
+  background: rgba(0,229,195,0.04);
+  box-shadow: 0 0 0 3px rgba(0,229,195,0.1);
+}
+input:focus + .icon-right,
+input:focus ~ i.icon { color: var(--mint); }
+
+.eye-btn {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 4px;
+  transition: color 0.2s;
+  width: auto;
+  margin: 0;
+}
+.eye-btn:hover { color: var(--mint); background: none; }
+
+/* ── Error texts ── */
+.err {
+  font-size: 11px;
+  color: var(--error);
+  margin-top: 5px;
+  min-height: 16px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+.err.show { opacity: 1; transform: translateY(0); }
+
+/* ── Submit button ── */
+.btn-login {
+  width: 100%;
+  padding: 15px;
+  margin-top: 8px;
+  background: linear-gradient(135deg, var(--mint), var(--teal));
+  border: none;
+  border-radius: 12px;
+  color: var(--deep);
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
+  box-shadow: 0 4px 24px rgba(0,229,195,0.25);
+  position: relative;
+  overflow: hidden;
+}
+.btn-login::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0,229,195,0.35);
+  filter: brightness(1.05);
+}
+.btn-login:hover::after { opacity: 1; }
+.btn-login:active { transform: translateY(0); }
+
+/* ── Result message ── */
+#result {
+  text-align: center;
+  font-size: 13px;
+  margin-top: 14px;
+  min-height: 20px;
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 0;
+  transition: all 0.3s;
+}
+#result.success {
+  color: var(--success);
+  background: rgba(0,229,195,0.08);
+  padding: 10px;
+  border: 1px solid rgba(0,229,195,0.2);
+}
+#result.error {
+  color: var(--error);
+  background: rgba(255,107,122,0.08);
+  padding: 10px;
+  border: 1px solid rgba(255,107,122,0.2);
+}
+
+/* ── Divider ── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0 20px;
+}
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.divider span {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ── Register link ── */
+.register-link {
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+}
+.register-link a {
+  color: var(--mint);
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+.register-link a:hover { opacity: 0.75; }
+
+/* ── Floating badge ── */
+.secure-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--muted);
+  background: rgba(0,229,195,0.06);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 12px;
+  margin-bottom: 24px;
+}
+.secure-badge i { color: var(--mint); font-size: 10px; }
+</style>
+</head>
+
+<body>
+<div class="bg">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+
+<div class="card">
+
+  <!-- Logo -->
+  <div class="logo-wrap">
+    <div class="logo-icon"><i class="fa-solid fa-shield-halved"></i></div>
+    <div class="logo-text">Secure<span>Auth</span></div>
+  </div>
+
+  <!-- Badge -->
+  <div class="secure-badge">
+    <i class="fa-solid fa-circle-check"></i>
+    SHA-256 Encrypted · SSL Secured
+  </div>
+
+  <!-- Heading -->
+  <div class="heading">Welcome back.</div>
+  <div class="subheading">Sign in to your account to continue</div>
+
+  <!-- Form -->
+  <form id="loginForm" autocomplete="off">
+
+    <!-- Username -->
+    <div class="field">
+      <label for="username">Username</label>
+      <div class="input-wrap">
+        <i class="icon fa-solid fa-user"></i>
+        <input type="text" id="username" placeholder="Enter your username" />
+      </div>
+      <div class="err" id="usernameError"><i class="fa-solid fa-circle-exclamation"></i><span></span></div>
+    </div>
+
+    <!-- Password -->
+    <div class="field">
+      <label for="password">Password</label>
+      <div class="input-wrap">
+        <i class="icon fa-solid fa-lock"></i>
+        <input type="password" id="password" placeholder="Enter your password" />
+        <button type="button" class="eye-btn" id="eyeBtn">
+          <i class="fa-solid fa-eye" id="eyeIcon"></i>
+        </button>
+      </div>
+      <div class="err" id="passwordError"><i class="fa-solid fa-circle-exclamation"></i><span></span></div>
+    </div>
+
+    <button type="submit" class="btn-login">
+      <i class="fa-solid fa-arrow-right-to-bracket"></i>&nbsp; Sign In
+    </button>
+
+    <div id="result"></div>
+
+  </form>
+
+  <div class="divider"><span>New here?</span></div>
+
+  <div class="register-link">
+    Don't have an account? <a href="register.html">Create one →</a>
+  </div>
+
+</div>
+
+<script>
+const passwordInput = document.getElementById("password");
+const eyeBtn       = document.getElementById("eyeBtn");
+const eyeIcon      = document.getElementById("eyeIcon");
+const loginForm    = document.getElementById("loginForm");
+const result       = document.getElementById("result");
+
+function showErr(id, msg) {
+  const el = document.getElementById(id);
+  el.querySelector("span").textContent = msg;
+  el.classList.add("show");
+}
+function clearErr(id) {
+  const el = document.getElementById(id);
+  el.querySelector("span").textContent = "";
+  el.classList.remove("show");
+}
+
+/* Show / Hide password */
+eyeBtn.onclick = () => {
+  const isHidden = passwordInput.type === "password";
+  passwordInput.type = isHidden ? "text" : "password";
+  eyeIcon.className = isHidden ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
+};
+
+/* Form submit */
+loginForm.addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  clearErr("usernameError");
+  clearErr("passwordError");
+  result.textContent = "";
+  result.className = "";
+
+  const username = document.getElementById("username").value.trim();
+  const password = passwordInput.value.trim();
+  let valid = true;
+
+  if (!username) {
+    showErr("usernameError", "Username is required!");
+    valid = false;
+  }
+  if (!password) {
+    showErr("passwordError", "Password is required!");
+    valid = false;
+  } else if (password.length < 8) {
+    showErr("passwordError", "Password must be at least 8 characters!");
+    valid = false;
+  }
+
+  if (!valid) return;
+
+  const btn = loginForm.querySelector(".btn-login");
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>&nbsp; Signing in...';
+  btn.disabled = true;
+
+  try {
+    const response = await fetch("http://localhost:5000/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+
+    const data = await response.json();
+
+    if (data.message === "Login successful") {
+      result.textContent = "✅ Login successful! Redirecting...";
+      result.className = "success";
+      setTimeout(() => { window.location.href = "register.html"; }, 1500);
+    } else {
+      result.textContent = "❌ " + data.message;
+      result.className = "error";
+      btn.innerHTML = '<i class="fa-solid fa-arrow-right-to-bracket"></i>&nbsp; Sign In';
+      btn.disabled = false;
+    }
+
+  } catch (err) {
+    result.textContent = "⚠ Cannot connect to server. Make sure backend is running!";
+    result.className = "error";
+    btn.innerHTML = '<i class="fa-solid fa-arrow-right-to-bracket"></i>&nbsp; Sign In';
+    btn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
